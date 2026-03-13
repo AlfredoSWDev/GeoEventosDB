@@ -13,7 +13,7 @@ Base de datos PostgreSQL de la plataforma **GeoEventos** — sistema B2B de gest
 ## Estructura del repositorio
 
 ```
-geoeventos-db/
+GeoEventosDB/
 ├── schema/
 │   ├── 001_create_admin.sql       # Documentación del rol administrador
 │   ├── 002_create_lugares.sql     # Tabla de lugares geográficos
