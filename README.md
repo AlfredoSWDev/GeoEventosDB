@@ -4,7 +4,7 @@ Base de datos PostgreSQL de la plataforma **GeoEventos** — sistema B2B de gest
 
 **Administrador:** Alfredo Sanchez
 
-**Plataforma de producción:** [Render](https://render.com)  
+**Plataforma de producción:** [Neon](https://neon.tech)
 
 **Motor:** PostgreSQL 15+
 
@@ -76,8 +76,10 @@ Almacena los eventos de la plataforma.
 # Crear la base de datos
 createdb geoeventos_db
 
-# Ejecutar el script maestro
-psql -U alfredo_sanchez -d geoeventos_db -f init.sql
+# Ejecutar los scripts en orden
+psql -U alfredo_sanchez -d geoeventos_db -f schema/002_create_lugares.sql
+psql -U alfredo_sanchez -d geoeventos_db -f schema/003_create_usuarios.sql
+psql -U alfredo_sanchez -d geoeventos_db -f schema/004_create_eventos.sql
 
 # (Opcional) Cargar datos de prueba
 psql -U alfredo_sanchez -d geoeventos_db -f seeds/datos_prueba.sql
@@ -85,17 +87,19 @@ psql -U alfredo_sanchez -d geoeventos_db -f seeds/datos_prueba.sql
 
 ---
 
-## Despliegue en Render
+## Despliegue en Neon
 
-1. Crear una base de datos PostgreSQL en [render.com](https://render.com/docs/databases)
-2. Copiar la **External Database URL** desde el dashboard de Render
-3. Ejecutar el script maestro contra la base de datos remota:
+1. Crear un proyecto en [neon.tech](https://neon.tech) y una base de datos llamada `geoeventos`
+2. Obtener el connection string desde el dashboard → **Connect**
+3. Ejecutar los scripts contra la base de datos remota:
 
 ```bash
-psql <RENDER_DATABASE_URL> -f init.sql
-```
+CONN="postgresql://usuario:password@host.neon.tech/geoeventos?sslmode=require&channel_binding=require"
 
-4. Conectar desde DataGrip usando la External Database URL de Render.
+psql "$CONN" -f schema/002_create_lugares.sql
+psql "$CONN" -f schema/003_create_usuarios.sql
+psql "$CONN" -f schema/004_create_eventos.sql
+```
 
 ---
 
@@ -106,16 +110,16 @@ Cada cambio a la estructura de la base de datos debe:
 1. Crear un nuevo archivo en `schema/` con el siguiente número secuencial (ej: `005_add_columna_nueva.sql`)
 2. Ejecutarlo localmente y verificar que funciona
 3. Hacer commit y push al repositorio
-4. Ejecutar el script en Render
+4. Ejecutar el script contra Neon
 
 ---
 
 ## Parte del ecosistema GeoEventos
 
-| Repositorio         | Descripción                              |
-|---------------------|------------------------------------------|
-| [GeoEventosAPI]()   | Spring Boot 4 + Java 25 + PostgreSQL     |
-| [GeoEventosWeb]()   | Kotlin Multiplatform / Compose for Web   |
-| [GeoEventosAndroid]()| Kotlin + Jetpack Compose + OSMDroid    |
-| [GeoEventosGUI]()   | Java 23 + Swing + JavaFX                 |
-| **GeoEventosDB**    | Schema y migraciones PostgreSQL ← aquí  |
+| Repositorio          | Descripción                              |
+|----------------------|------------------------------------------|
+| [GeoEventosAPI]()    | Spring Boot 4 + Java 21 + PostgreSQL     |
+| [GeoEventosWeb]()    | Kotlin Multiplatform / Compose for Web   |
+| [GeoEventosAndroid]()| Kotlin + Jetpack Compose + OSMDroid     |
+| [GeoEventosGUI]()    | Java 23 + Swing + JavaFX                 |
+| **GeoEventosDB**     | Schema y migraciones PostgreSQL ← aquí  |
