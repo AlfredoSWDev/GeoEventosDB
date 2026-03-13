@@ -2,7 +2,7 @@
 
 Base de datos PostgreSQL de la plataforma **GeoEventos** — sistema B2B de gestión de eventos geolocalizados.
 
-**Administrador:** Alfredo Sanchez · alfredosanchez.dev@gmail.com  
+**Administrador:** Alfredo Sanchez
 **Plataforma de producción:** [Render](https://render.com)  
 **Motor:** PostgreSQL 15+
 
