@@ -1,0 +1,17 @@
+# Archivos de entorno con credenciales
+.env
+*.env
+.env.local
+
+# Backups locales
+*.dump
+*.backup
+*.tar
+
+# DataGrip
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
