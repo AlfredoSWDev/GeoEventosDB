@@ -1,11 +1,9 @@
-# GeoEventos DB 🗺️
+# GeoEventosDB 🗺️
 
 Base de datos PostgreSQL de la plataforma **GeoEventos** — sistema B2B de gestión de eventos geolocalizados.
 
-**Administrador:** Alfredo Sanchez
-
-**Plataforma de producción:** [Neon](https://neon.tech)
-
+**Administrador:** Alfredo Sanchez  
+**Plataforma de producción:** [Neon](https://neon.tech)  
 **Motor:** PostgreSQL 15+
 
 ---
@@ -32,41 +30,41 @@ GeoEventosDB/
 ### `lugares`
 Almacena los lugares geográficos donde se realizan los eventos.
 
-| Columna          | Tipo             | Descripción                        |
-|------------------|------------------|------------------------------------|
-| `lugar_id`       | SERIAL (PK)      | Identificador único                |
-| `nombre_lugar`   | TEXT NOT NULL    | Nombre descriptivo del lugar       |
-| `ubicacion_lugar`| TEXT NOT NULL    | Dirección o descripción textual    |
-| `latitud`        | DOUBLE PRECISION | Coordenada latitud (WGS84)         |
-| `longitud`       | DOUBLE PRECISION | Coordenada longitud (WGS84)        |
+| Columna | Tipo | Descripción |
+|---------|------|-------------|
+| `lugar_id` | SERIAL (PK) | Identificador único |
+| `nombre_lugar` | TEXT NOT NULL | Nombre descriptivo del lugar |
+| `ubicacion_lugar` | TEXT NOT NULL | Dirección o descripción textual |
+| `latitud` | DOUBLE PRECISION | Coordenada latitud (WGS84) |
+| `longitud` | DOUBLE PRECISION | Coordenada longitud (WGS84) |
 
 ### `usuarios`
 Almacena los usuarios de la plataforma.
 
-| Columna               | Tipo          | Descripción                                      |
-|-----------------------|---------------|--------------------------------------------------|
-| `user_id`             | SERIAL (PK)   | Identificador único                              |
-| `nombre`              | TEXT NOT NULL | Nombre completo del usuario                      |
-| `tipo_de_usuario`     | TEXT NOT NULL | Rol: `cliente`, `organizador`, `admin`           |
-| `estado_del_usuario`  | TEXT NOT NULL | Estado: `activo`, `inactivo`, `suspendido`       |
-| `correo_electronico`  | TEXT UNIQUE   | Correo único del usuario                         |
-| `favoritos`           | TEXT          | IDs de eventos favoritos                         |
-| `eventos_auspiciados` | TEXT          | IDs de eventos auspiciados                       |
+| Columna | Tipo | Descripción |
+|---------|------|-------------|
+| `user_id` | SERIAL (PK) | Identificador único |
+| `nombre` | TEXT NOT NULL | Nombre completo |
+| `tipo_de_usuario` | TEXT NOT NULL | Rol: `cliente`, `organizador`, `admin` |
+| `estado_del_usuario` | TEXT NOT NULL | Estado: `activo`, `inactivo`, `suspendido` |
+| `correo_electronico` | TEXT UNIQUE | Correo único del usuario |
+| `favoritos` | TEXT | IDs de eventos favoritos |
+| `eventos_auspiciados` | TEXT | IDs de eventos auspiciados |
 
 ### `eventos`
 Almacena los eventos de la plataforma.
 
-| Columna               | Tipo             | Descripción                         |
-|-----------------------|------------------|-------------------------------------|
-| `event_id`            | SERIAL (PK)      | Identificador único                 |
-| `nombre_evento`       | TEXT NOT NULL    | Nombre del evento                   |
-| `descripcion_evento`  | TEXT             | Descripción detallada               |
-| `vigencia_evento`     | TEXT             | Fecha o rango de vigencia           |
-| `valor_evento`        | TEXT             | Precio o valor de entrada           |
-| `lugar_evento`        | TEXT NOT NULL    | Nombre o descripción del lugar      |
-| `fotos_evento`        | TEXT             | URL o referencia de fotos           |
-| `latitud`             | DOUBLE PRECISION | Coordenada latitud (WGS84)          |
-| `longitud`            | DOUBLE PRECISION | Coordenada longitud (WGS84)         |
+| Columna | Tipo | Descripción |
+|---------|------|-------------|
+| `event_id` | SERIAL (PK) | Identificador único |
+| `nombre_evento` | TEXT NOT NULL | Nombre del evento |
+| `descripcion_evento` | TEXT | Descripción detallada |
+| `vigencia_evento` | TEXT | Fecha o rango de vigencia |
+| `valor_evento` | TEXT | Precio o valor de entrada |
+| `lugar_evento` | TEXT NOT NULL | Nombre o descripción del lugar |
+| `fotos_evento` | TEXT | URL de foto (ImgBB) |
+| `latitud` | DOUBLE PRECISION | Coordenada latitud (WGS84) |
+| `longitud` | DOUBLE PRECISION | Coordenada longitud (WGS84) |
 
 ---
 
@@ -103,9 +101,9 @@ psql "$CONN" -f schema/004_create_eventos.sql
 
 ---
 
-## Flujo de trabajo (migraciones)
+## Flujo de migraciones
 
-Cada cambio a la estructura de la base de datos debe:
+Cada cambio estructural debe:
 
 1. Crear un nuevo archivo en `schema/` con el siguiente número secuencial (ej: `005_add_columna_nueva.sql`)
 2. Ejecutarlo localmente y verificar que funciona
@@ -116,10 +114,18 @@ Cada cambio a la estructura de la base de datos debe:
 
 ## Parte del ecosistema GeoEventos
 
-| Repositorio          | Descripción                              |
-|----------------------|------------------------------------------|
-| [GeoEventosAPI]()    | Spring Boot 4 + Java 21 + PostgreSQL     |
-| [GeoEventosWeb]()    | Kotlin Multiplatform / Compose for Web   |
-| [GeoEventosAndroid]()| Kotlin + Jetpack Compose + OSMDroid     |
-| [GeoEventosGUI]()    | Java 23 + Swing + JavaFX                 |
-| **GeoEventosDB**     | Schema y migraciones PostgreSQL ← aquí  |
+| Repositorio | Descripción |
+|-------------|-------------|
+| [GeoEventosAPI](https://github.com/AlfredoSWDev/GeoEventosAPI) | Spring Boot 4 + Java 21 + PostgreSQL |
+| [GeoEventosWeb](https://github.com/AlfredoSWDev/GeoEventosWeb) | Kotlin/Wasm + Compose for Web |
+| [GeoEventosAndroid](https://github.com/AlfredoSWDev/GeoEventosAndroid) | Kotlin + Jetpack Compose + OSMDroid |
+| [GeoEventosDesktop](https://github.com/AlfredoSWDev/GeoEventosDesktop) | Java 23 + Swing + JavaFX |
+| **GeoEventosDB** | Schema y migraciones PostgreSQL ← aquí |
+
+---
+
+## Autor
+
+**Alfredo Sanchez** — [@AlfredoSWDev](https://github.com/AlfredoSWDev)
+
+📺 Stream de desarrollo en [Twitch](https://twitch.tv/AlfredoSWDev) · [YouTube](https://youtube.com/@AlfredoSWDev)
